@@ -31,7 +31,8 @@ if (protocol == null) {
   command += `all ${protocol}`
 }
 
-;(async () => {
+(async () => {
+  /*@ts-ignore*/
   const req_result = await Api.executeBird([server], command)
   // console.log(req_result)
   detail.value = req_result.data.result[0].data

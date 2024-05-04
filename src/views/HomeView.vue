@@ -18,7 +18,7 @@
                 type="primary"
                 size="small"
                 @click="
-                  console.log(result)
+                  //@ts-ignore
                   router.push(`/detail/${result.server}/${result.data[scope.$index].name}`)
                 "
               >
@@ -33,18 +33,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Api from '@/scripts/api'
 
 const router = useRouter()
 
 let loaded = ref(false)
-const results = ref([])
+const results: Ref<any> = ref([])
 
 ;(async () => {
   const serverListRes = await Api.getServerList()
-  const serverList = serverListRes.data.result.map((element) => element.server)
+  const serverList = serverListRes.data.result.map((element: any) => element.server)
   const birdShowProtocols = await Api.executeBird(serverList, 'show protocols')
   for (const result of birdShowProtocols.data.result) {
     buildTableData(result)
@@ -52,12 +52,18 @@ const results = ref([])
   loaded.value = true
 })()
 
-function buildTableData(result) {
+function buildTableData(result: any) {
   const data = []
   const arr = result.data.split('\n').slice(1)
   arr.pop()
   for (const element of arr) {
-    const singleData = {}
+    const singleData = {
+      name: "",
+      protocol: "",
+      table: "",
+      state: "",
+      since: ""
+    }
     const singleDataArr = element.replace(/\s+/gi, ' ').split(' ')
     singleData.name = singleDataArr[0]
     singleData.protocol = singleDataArr[1]
@@ -66,6 +72,7 @@ function buildTableData(result) {
     singleData.since = singleDataArr[4]
     data.push(singleData)
   }
+  //@ts-ignore
   results.value.push({ server: result.server, data: data })
 }
 </script>
