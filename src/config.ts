@@ -3,6 +3,6 @@ export default {
     icon: 'https://blog.1l1.icu/images/avatar.jpg',
     title: 'Muska Ami DN42 Looking Glass'
   },
-  full_url: 'https://looking-glass.dn42.1l1.icu',
-  api_url: 'https://looking-glass.dn42.1l1.icu/api/'
+  full_url: 'https://api.looking-glass.dn42.1l1.icu',
+  api_url: 'https://api.looking-glass.dn42.1l1.icu/api/'
 }
