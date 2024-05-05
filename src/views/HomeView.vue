@@ -11,7 +11,7 @@
           >
           <router-link :to="`/route/${result.server}`"><el-button>Route</el-button></router-link>
         </div>
-        <el-table :data="result.data" style="width: 100%">
+        <el-table :data="result.data" :row-class-name="tableRowClassName" style="width: 100%">
           <el-table-column prop="name" label="Name" />
           <el-table-column prop="protocol" label="Protocol" />
           <el-table-column prop="table" label="Table" />
@@ -48,6 +48,30 @@ const router = useRouter()
 
 let loaded = ref(false)
 const results: Ref<any> = ref([])
+
+interface SingleData {
+  name: string
+  protocol: string
+  table: string
+  state: string
+  since: string
+  message: string
+}
+
+const tableRowClassName = ({ row }: { row: SingleData }) => {
+  console.log(row)
+  if (row.state == 'down') {
+    console.log(row.state)
+    return 'error-row'
+  } else if (row.state == 'start') {
+    console.log(row.state)
+    return 'warning-row'
+  } else if (row.state == 'up' && row.protocol == 'BGP') {
+    console.log(row.state)
+    return 'success-row'
+  }
+  return ''
+}
 
 ;(async () => {
   const serverListRes = await Api.getServerList()
@@ -94,5 +118,18 @@ h3 {
 
 .actions .el-button {
   margin: 0.6rem 0.4rem 1rem 0;
+}
+</style>
+<style>
+.error-row {
+  --el-table-tr-bg-color: var(--el-color-error-light-9) !important;
+}
+
+.warning-row {
+  --el-table-tr-bg-color: var(--el-color-warning-light-9) !important;
+}
+
+.success-row {
+  --el-table-tr-bg-color: var(--el-color-success-light-9) !important;
 }
 </style>
