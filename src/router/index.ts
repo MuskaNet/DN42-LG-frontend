@@ -15,6 +15,10 @@ const router = createRouter({
     {
       path: '/detail/:server/:protocol',
       component: () => import('@/views/ProtocolInfoView.vue')
+    },
+    {
+      path: '/route/:server',
+      component: () => import('@/views/RouteView.vue')
     }
   ]
 })

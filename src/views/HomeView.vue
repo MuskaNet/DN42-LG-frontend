@@ -5,12 +5,19 @@
     <template #default>
       <div v-for="result of results" :key="result.server">
         <h3>{{ result.server }}</h3>
+        <div class="actions">
+          <router-link :to="`/detail/${result.server}`"
+            ><el-button type="primary">Detail</el-button></router-link
+          >
+          <router-link :to="`/route/${result.server}`"><el-button>Route</el-button></router-link>
+        </div>
         <el-table :data="result.data" style="width: 100%">
           <el-table-column prop="name" label="Name" />
           <el-table-column prop="protocol" label="Protocol" />
           <el-table-column prop="table" label="Table" />
           <el-table-column prop="state" label="State" />
           <el-table-column prop="since" label="Since" />
+          <el-table-column prop="message" label="Message" />
           <el-table-column fixed="right" label="More" width="120">
             <template #default="scope">
               <el-button
@@ -58,11 +65,12 @@ function buildTableData(result: any) {
   arr.pop()
   for (const element of arr) {
     const singleData = {
-      name: "",
-      protocol: "",
-      table: "",
-      state: "",
-      since: ""
+      name: '',
+      protocol: '',
+      table: '',
+      state: '',
+      since: '',
+      message: ''
     }
     const singleDataArr = element.replace(/\s+/gi, ' ').split(' ')
     singleData.name = singleDataArr[0]
@@ -70,6 +78,7 @@ function buildTableData(result: any) {
     singleData.table = singleDataArr[2]
     singleData.state = singleDataArr[3]
     singleData.since = singleDataArr[4]
+    singleData.message = singleDataArr[5]
     data.push(singleData)
   }
   //@ts-ignore
@@ -81,5 +90,9 @@ function buildTableData(result: any) {
 h2,
 h3 {
   margin: 1rem 0;
+}
+
+.actions .el-button {
+  margin: 0.6rem 0.4rem 1rem 0;
 }
 </style>

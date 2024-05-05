@@ -1,5 +1,5 @@
 <template>
-  <h2>Protocol Details: {{ protocol ?? 'all' }}</h2>
+  <h2>Route Details</h2>
   <el-text>Server: {{ server }}</el-text>
   <div style="margin-top: 1rem">
     <el-skeleton v-if="!loaded" :rows="5" animated />
@@ -19,17 +19,16 @@ import Api from '@/scripts/api'
 const route = useRoute()
 
 const server = route.params.server
-const protocol = route.params.protocol
 
 let loaded = ref(false)
-let command = 'show protocols '
+let command = 'show route'
 let detail = ref('')
 
-if (protocol == null) {
-  command += 'all'
-} else {
-  command += `all ${protocol}`
-}
+//   if (protocol == null) {
+//     command += 'all'
+//   } else {
+//     command += `all ${protocol}`
+//   }
 
 ;(async () => {
   /*@ts-ignore*/
