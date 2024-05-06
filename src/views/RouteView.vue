@@ -24,17 +24,17 @@ let loaded = ref(false)
 let command = 'show route'
 let detail = ref('')
 
-//   if (protocol == null) {
-//     command += 'all'
-//   } else {
-//     command += `all ${protocol}`
-//   }
+  //   if (protocol == null) {
+  //     command += 'all'
+  //   } else {
+  //     command += `all ${protocol}`
+  //   }
 
-;(async () => {
-  /*@ts-ignore*/
-  const req_result = await Api.executeBird([server], command)
-  // console.log(req_result)
-  detail.value = req_result.data.result[0].data
-  loaded.value = true
-})()
+  ; (async () => {
+    /*@ts-ignore*/
+    const req_result = await Api.executeBird([server], command)
+    // console.log(req_result)
+    detail.value = req_result.data.result[0].data
+    loaded.value = true
+  })()
 </script>

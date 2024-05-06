@@ -6,9 +6,7 @@
       <div v-for="result of results" :key="result.server">
         <h3>{{ result.server }}</h3>
         <div class="actions">
-          <router-link :to="`/detail/${result.server}`"
-            ><el-button type="primary">Detail</el-button></router-link
-          >
+          <router-link :to="`/detail/${result.server}`"><el-button type="primary">Detail</el-button></router-link>
           <router-link :to="`/route/${result.server}`"><el-button>Route</el-button></router-link>
         </div>
         <el-table :data="result.data" :row-class-name="tableRowClassName" style="width: 100%">
@@ -20,15 +18,10 @@
           <el-table-column prop="message" label="Message" />
           <el-table-column fixed="right" label="More" width="120">
             <template #default="scope">
-              <el-button
-                link
-                type="primary"
-                size="small"
-                @click="
-                  //@ts-ignore
-                  router.push(`/detail/${result.server}/${result.data[scope.$index].name}`)
-                "
-              >
+              <el-button link type="primary" size="small" @click="
+                //@ts-ignore
+                router.push(`/detail/${result.server}/${result.data[scope.$index].name}`)
+                ">
                 Detail
               </el-button>
             </template>
@@ -59,29 +52,29 @@ interface SingleData {
 }
 
 const tableRowClassName = ({ row }: { row: SingleData }) => {
-  console.log(row)
+  //console.log(row)
   if (row.state == 'down') {
-    console.log(row.state)
+    //console.log(row.state)
     return 'error-row'
   } else if (row.state == 'start') {
-    console.log(row.state)
+    //console.log(row.state)
     return 'warning-row'
   } else if (row.state == 'up' && row.protocol == 'BGP') {
-    console.log(row.state)
+    //console.log(row.state)
     return 'success-row'
   }
   return ''
 }
 
-;(async () => {
-  const serverListRes = await Api.getServerList()
-  const serverList = serverListRes.data.result.map((element: any) => element.server)
-  const birdShowProtocols = await Api.executeBird(serverList, 'show protocols')
-  for (const result of birdShowProtocols.data.result) {
-    buildTableData(result)
-  }
-  loaded.value = true
-})()
+  ; (async () => {
+    const serverListRes = await Api.getServerList()
+    const serverList = serverListRes.data.result.map((element: any) => element.server)
+    const birdShowProtocols = await Api.executeBird(serverList, 'show protocols')
+    for (const result of birdShowProtocols.data.result) {
+      buildTableData(result)
+    }
+    loaded.value = true
+  })()
 
 function buildTableData(result: any) {
   const data = []

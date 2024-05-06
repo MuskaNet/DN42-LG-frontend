@@ -19,6 +19,14 @@ const router = createRouter({
     {
       path: '/route/:server',
       component: () => import('@/views/RouteView.vue')
+    },
+    {
+      path: '/whois/:value',
+      component: () => import('@/views/WhoisView.vue')
+    },
+    {
+      path: '/traceroute/:server/:address',
+      component: () => import('@/views/TracerouteView.vue')
     }
   ]
 })
