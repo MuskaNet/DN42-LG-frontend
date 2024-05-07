@@ -1,39 +1,20 @@
-# dn42-lg-fronted
+# DN42 Looking Glass Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the frontend for Muska Ami's DN42 Looking Glass.
 
-## Recommended IDE Setup
+## API
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+We're using [bird-lg-go](https://github.com/xddxdd/bird-lg-go) for our server-side API.
 
-## Type Support for `.vue` Imports in TS
+## Build and deploy
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+You can configure it by modify this file: `src/config.ts`.  
+We're using PNPM for package management.  
+Alternatively, you can use any other package manager you prefer.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
+```bash
+#npm run build-only
+pnpm build-only
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+The output is now in dist/. Simply deploy it and enjoy!
