@@ -15,6 +15,7 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Api from '@/scripts/api'
+import { ElNotification } from 'element-plus';
 
 const route = useRoute()
 
@@ -31,11 +32,19 @@ if (protocol == null) {
   command += `all ${protocol}`
 }
 
-;(async () => {
+; (async () => {
   /*@ts-ignore*/
   const req_result = await Api.executeBird([server], command)
   // console.log(req_result)
   detail.value = req_result.data.result[0].data
   loaded.value = true
-})()
+})().catch((e) => {
+  ElNotification({
+    title: "Failed to fetch",
+    message: e!.toString(),
+    type: "error"
+  })
+  detail.value = `Unable to fetch information:\n${e}`
+  loaded.value = true
+})
 </script>

@@ -36,6 +36,7 @@
 import { ref, type Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Api from '@/scripts/api'
+import { ElNotification } from 'element-plus';
 
 const router = useRouter()
 
@@ -53,7 +54,11 @@ interface SingleData {
 
 const tableRowClassName = ({ row }: { row: SingleData }) => {
   //console.log(row)
-  if (row.state == 'down') {
+  if (
+    row.state == 'down'
+    || (row.state == 'start' && row.message == 'Idle')
+    || (row.state == 'start' && row.message == 'Connect')
+  ) {
     //console.log(row.state)
     return 'error-row'
   } else if (row.state == 'start') {
@@ -71,10 +76,26 @@ const tableRowClassName = ({ row }: { row: SingleData }) => {
     const serverList = serverListRes.data.result.map((element: any) => element.server)
     const birdShowProtocols = await Api.executeBird(serverList, 'show protocols')
     for (const result of birdShowProtocols.data.result) {
-      buildTableData(result)
+      try {
+        buildTableData(result)
+      } catch (e) {
+        ElNotification({
+          title: "Failed to fetch",
+          message: e!.toString(),
+          type: "error"
+        })
+      }
     }
     loaded.value = true
-  })()
+  })().catch((e) => {
+    ElNotification({
+      title: "Failed to fetch",
+      message: e!.toString(),
+      type: "error"
+    })
+    // detail.value = `Unable to fetch information:\n${e}`
+    loaded.value = true
+  })
 
 function buildTableData(result: any) {
   const data = []
