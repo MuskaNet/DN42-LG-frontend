@@ -1,6 +1,6 @@
 # DN42 Looking Glass Frontend
 
-This is the frontend for Muska Ami's DN42 Looking Glass.
+This is the frontend for Muska Network DN42 Looking Glass.
 
 ## API
 
